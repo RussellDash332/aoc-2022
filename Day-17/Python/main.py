@@ -1,7 +1,8 @@
 jetpack = input()
-
 LENGTH = 7
 HEIGHT = 0
+CHECK_ROWS = 10
+
 def draw(print_rows=0):
     m = [['.' for _ in range(LENGTH)] for _ in range(HEIGHT + 2)]
     for x, y in D:
@@ -61,29 +62,29 @@ def drop():
 
 h = {}
 per = 0
-CHECK_ROWS = 15
-while not per or t < 2022:
+while not per:
     drop()
-    if t == 2022:
-        print('Part 1:', HEIGHT)
     top = '\n'.join(''.join(['.#'[int((x, HEIGHT-k-1) in D)] for x in range(0, LENGTH)]) for k in range(CHECK_ROWS))
     if (pos, t % 5, top) in h and not per:
         per = t - h[(pos, t % 5, top)]
     h[(pos, t % 5, top)] = t
 
-# For part 2
-pos, t, D, HEIGHT = 0, 0, set(), 0
-T = 1000000000000
-for _ in range(T % per):
-    drop()
-h1 = HEIGHT
-for _ in range(per):
-    drop()
-h2 = HEIGHT
-# One more time for a good measure
-for _ in range(per):
-    drop()
-h3 = HEIGHT
-assert h1 + h3 == 2*h2
-per_h = h3 - h2
-print('Part 2:', HEIGHT + (T // per - 2) * per_h)
+def solve(T):
+    global pos, t, D, HEIGHT
+    pos, t, D, HEIGHT = 0, 0, set(), 0
+    for _ in range(T % per):
+        drop()
+    h1 = HEIGHT
+    for _ in range(per):
+        drop()
+    h2 = HEIGHT
+    # One more time for a good measure
+    for _ in range(per):
+        drop()
+    h3 = HEIGHT
+    assert h1 + h3 == 2*h2
+    per_h = h3 - h2
+    return HEIGHT + (T // per - 2) * per_h
+
+print('Part 1:', solve(2022))
+print('Part 2:', solve(1000000000000))
