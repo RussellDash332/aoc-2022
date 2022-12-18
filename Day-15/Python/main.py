@@ -12,7 +12,6 @@ for line in sys.stdin:
     xmax = max(xmax, xs, xb)
     ymin = min(ymin, ys, yb)
     ymax = max(ymax, ys, yb)
-
 S = set(sb.keys())
 B = set(sb.values())
 C = {}
@@ -26,9 +25,6 @@ xmin -= 3
 ymin -= 3
 xmax += 3
 ymax += 3
-xrange = xmax - xmin
-yrange = ymax - ymin
-
 def draw():
     m = []
     for y in range(ymin, ymax + 1):
@@ -51,16 +47,21 @@ for (xs, ys), (xb, yb) in sb.items():
     md[(xs, ys)] = abs(xs - xb) + abs(ys - yb)
     mmd = max(mmd, md[(xs, ys)])
 
-# I didn't merge interval because lazy :)
-# Yes it's longer
+# Semi-golfed merge interval code
+def merge(intervals):
+    h=lambda a,b:0 if a[1]<b[0]or b[1]<a[0]else[min(a[0],b[0]),max(a[1],b[1])]
+    return [r:=[],[[r.pop(),r.append(k)]if r and(k:=h(r[-1],j))else r.append(j)for j in sorted(intervals)]][0]
+
 def part1():
     Y = 2_000_000
-    c = -len({x for x, y in B if y == Y})
-    for x in range(xmin - mmd, xmax + mmd):
-        for xs, ys in S:
-            if abs(xs - x) + abs(ys - Y) <= md[(xs, ys)]:
-                c += 1
-                break
+    c = 0
+    ints = []
+    for x, y in md:
+        # abs(x - X) + abs(y - Y) <= md[(x, y)], find min(X) and max(X)
+        t = md[(x, y)] - abs(y - Y)
+        if t >= 0: ints.append([-t+x, t+x])
+    for s, e in merge(ints):
+        c += e - s
     print('Part 1:', c)
 
 def part2():
