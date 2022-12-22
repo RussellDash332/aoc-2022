@@ -2,6 +2,12 @@
 
 All my Advent of Code 2022 attempts! Mainly in Python.
 
+## Cool Stuff
+
+|Day 22 Part 1|Day 22 Part 2|
+|---|---|
+|<img src="Day-22/Python/d22p1.gif"/>|<img src="Day-22/Python/d22p2.gif"/>|
+
 ## Note to Self
 ```sh
 export X=... # day number
