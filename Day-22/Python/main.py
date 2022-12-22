@@ -44,7 +44,6 @@ def draw(p=None):
 def make_gif(p):
     with imageio.get_writer(p, mode='I') as writer:
         for filename in os.listdir('frames'):
-            print(filename)
             image = imageio.imread(os.path.join('frames', filename))
             writer.append_data(image)
     for filename in os.listdir('frames'):
