@@ -170,5 +170,3 @@ m = m2
 print('Part 2:', simulate(faces))
 #print('Part 2:', simulate(faces, draw_fp='d22p2.gif'))
 draw('part2.txt')
-
-shutil.rmtree('frames')

@@ -1,0 +1,6 @@
+*.png
+*.pdf
+*.class
+main
+mainc
+__pycache__/

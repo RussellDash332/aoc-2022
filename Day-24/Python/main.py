@@ -100,6 +100,4 @@ for _ in range(2):
     while not p:
         tick()
 print('Part 2:', p)
-
 #make_gif('d24.gif')
-shutil.rmtree('frames')
