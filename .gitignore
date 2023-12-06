@@ -1,6 +1,7 @@
 *.png
 *.pdf
 *.class
+*.in
 main
 mainc
 __pycache__/
